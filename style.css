@@ -84,7 +84,7 @@ html {
     cursor: pointer;
   }
   
-  .navigation__link:hover {
+  .navigation__link:not(.navigation__link_selected):hover {
     color: #f8b7b3;
     text-decoration: underline;
   }
@@ -230,7 +230,7 @@ html {
     padding: 0 6px;
   }
 
-  .filter__item:hover {
+  .filter__item:not(.filter__item_selected):hover {
     cursor: pointer;
     box-shadow: 0px 0px 3px 1px #767e9e;
   }
@@ -317,6 +317,11 @@ html {
   .portfolio__project-image12 {
     background-image: url(./assets/img/portfolio/BrokenGlass.png);
     background-position: -36px -60px;
+  }
+
+  .project-bordered {
+    box-sizing: border-box;
+    border: 5px solid #F06C64;
   }
 
   .about-us{
