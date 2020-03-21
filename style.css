@@ -42,10 +42,29 @@ html {
   
 .header {
     height: 89px;
+    width: 100%;
     background-color: #2d303a;
     border-bottom: 6px solid #323746;
+    position: fixed;
+    z-index: 3;
   }
-  
+
+   #slider {
+    border-top: 95px solid transparent;
+    -moz-background-clip: padding;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+  }
+
+  #our-services, #portfolio, #about-us, #contact {
+    border-top: 94px solid transparent;
+    margin-top: -94px;
+    -moz-background-clip: padding;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+  } 
+
+
   .header__wrapper {
     display: flex;
     justify-content: space-between;
@@ -102,20 +121,97 @@ html {
     height: 594px;
     background-color: #f06c64;
     border-bottom: 6px solid #ea676b;
+    transform: translateY();
+    position: relative;
   }
   
-  .slider__wrapper {
+   .slider__wrapper {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding-top: 53px;
+  } 
+
+  .slider__content{
+    position: relative;
+    width: 100%;
+    overflow: hidden;
   }
-  
-  .slider__content {
+
+  .slide{
+    display: none;
+    position: relative;
+    margin: 0 auto;
+    animation: 0.5s ease-in-out;
+  }
+
+  .active, 
+  .next{
+    display: block;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 797px;
+  }
+
+  .next {
+    position: absolute;
+    top: 0;
+    width: 100%;
+  }
+  
+  .slide1 {
+    width: 951px;
+    height: 486px;
+  }
+
+  .slide2 {
+    width: 951px;
+    height: 486px;
+    margin-left: 20%;
+  }
+  
+  .phone__vertical {
+    position: absolute;
+    width: 240px;
+    height: 483px;
+    left: 56px;
+    top: 0px;
+    z-index: 1;
+  }
+
+  .phone__horizontal {
+    position: absolute;
+    width: 484px;
+    height: 240px;
+    right: 55px;
+    top: 121px;
+    z-index: 1;
+  }
+  
+  .phone_content_vertical{
+    position: absolute;
+    top: 65px;
+    left: 14px;
+    height: 333px;
+    width: 188px;
+    background-image: url(./assets/img/slider/phone_content_1.png);
+    background-position: 3.5% 54.5%;
+    z-index: 2;
+  }
+  
+  .phone_content_horizontal {
+    position: absolute;
+    top: 14px;
+    left: 60px;
+    height: 188px;
+    width: 333px;
+    background-image: url(./assets/img/slider/phone_content_2.png);
+    background-position: 50.5% 30.5%;
+    z-index: 2;
+  }
+
+  .content_invisible {
+    visibility: hidden;
   }
   
   .slider__arrow {
@@ -129,6 +225,54 @@ html {
 
   .slider__horizontal-img {
     margin-top: -1px;
+  }
+
+  .to-left {
+    animation-name: left;
+
+  }
+
+  .to-right {
+    animation-name: right;
+    animation-duration: reverse;
+    
+  }
+
+  .from-left {
+    animation-name: left;
+    animation-duration: reverse;
+  }
+
+  .from-right {
+    animation-name: right;
+  }
+
+  @keyframes left {
+    from {
+      left: 0;
+    }
+    to {
+      left: -100%;
+    }
+  }
+
+  @keyframes right {
+    from {
+      left: 100%;
+    }
+    to {
+      left: 0;
+    }
+  }
+
+  .backgroundColor1 {
+    background-color: #f06c64;
+    border-bottom: 6px solid #ea676b;
+  }
+  
+  .backgroundColor2 {
+    background-color: #648BF0;
+    border-bottom: 6px solid #648BF0;
   }
   
   .our-services {
@@ -423,7 +567,8 @@ html {
     font-family: 'Lato', sans-serif;
   }
 
-  .get-information__item {
+  .get-information__item,
+  .modal__button {
     border-radius: 5px;
     background-color: #d6564f;
     color: #f0d8d9;
@@ -540,7 +685,42 @@ html {
     border: 0px solid  #666d89;
     border-radius: 50%;
   }
- 
+
   .social-contacts_icon:hover {
     box-shadow: 0px 0px 3px 1px #666d89;
   }
+
+  .modal-block {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(44, 40, 40, 0.533);
+    z-index: 4; 
+  }
+
+  .modal-block.hidden {
+    display: none;
+  }
+  
+  .modal__content {
+  position: absolute;
+  min-width: 200px;
+  max-width: 500px;
+	padding: 15px;
+	top: 25%;
+	left: 25%;
+	background-color: #f0d8d9;
+	color: #c94841;
+	border: 2px solid #f78689;
+	border-radius: 5px;
+	text-align: center;
+  }
+  
+  .modal__message p {
+    max-height: 210px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+ 
