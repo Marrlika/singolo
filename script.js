@@ -1,5 +1,43 @@
 /*header*/
 
+let flagIsMenuOpen = false;
+
+document.querySelector(".burger-menu").addEventListener("click", onBurgerClick);
+function onBurgerClick ( event ) {
+    if (flagIsMenuOpen) {
+        hideMenu();
+    } else {
+        showMenu();  
+    }
+}
+
+function isBurgerAvailable () {
+    const burgerMenu =   document.querySelector(".burger-menu");
+    return (burgerMenu)?true:false;
+}
+
+function showMenu() {
+    if (isBurgerAvailable()) {
+        document.querySelector(".burger-menu").classList.add("burger-menu__selected");
+        document.querySelector(".header__logo").style.left = "40px";
+        document.querySelector(".header-modal-menu").classList.add("header-modal-menu_color");
+        document.querySelector(".heder__navigation").style.left = "0";
+        flagIsMenuOpen = true;
+    }
+}
+
+function hideMenu() {
+    if (isBurgerAvailable()) {
+        document.querySelector(".burger-menu").classList.remove("burger-menu__selected");
+        document.querySelector(".header__logo").removeAttribute("style");
+        document.querySelector(".header-modal-menu").classList.remove("header-modal-menu_color");
+        document.querySelector(".heder__navigation").removeAttribute("style");
+        flagIsMenuOpen = false;
+    }
+}
+
+
+
 document.querySelector(".heder__navigation").addEventListener("click", selectNavigationLink);
 
 function selectNavigationLink(event) {
@@ -7,7 +45,8 @@ function selectNavigationLink(event) {
         element.classList.remove("navigation__link_selected");
     });
     event.target.classList.add("navigation__link_selected");
-    }
+    hideMenu();
+}
 
 
 document.addEventListener("scroll", onScroll);
@@ -18,7 +57,7 @@ const section =  document.querySelectorAll("body>section");
 
 section.forEach(element => {
 
-    if(element.offsetTop  <= curPos && (element.offsetTop + element.offsetHeight) > curPos) {
+    if(element.offsetTop-1  <= curPos && (element.offsetTop + element.offsetHeight) > curPos) {
         document.querySelectorAll(".navigation__link").forEach( a => {
             a.classList.remove("navigation__link_selected");
             if(element.getAttribute("id") === a.getAttribute("href").substring(1)) {
@@ -29,7 +68,10 @@ section.forEach(element => {
 });
 }
 
-/*slider*/
+
+
+/* slider */
+
 document.querySelector(".slide1").addEventListener("click", selectPhone);
 flagContentInvisible = false;
 
@@ -51,17 +93,10 @@ function setVisibility(block) {
     }
 }
 
-/////////////////////////////////////////////////////
+/* slider carousel*/
   let slides = document.querySelectorAll(".slide");
   let currentSlider = 0;
   let isEnabled = true;
-  const slideBackground = document.querySelector(".slider");
-
-  const slideColor = {
-    0: "backgroundColor1",
-    1: "backgroundColor2",
-    "default": "backgroundColor1"
-  }
 
   function changeCurrentSlide(n) {
     currentSlider = (n + slides.length) % slides.length;
@@ -86,26 +121,16 @@ function setVisibility(block) {
     })
 }
 
-function changeSlideBackground(){
-    slideBackground.classList.value = "slider";
-    if(slideColor.hasOwnProperty(currentSlider)) {
-      slideBackground.classList.add(slideColor[currentSlider]);
-    } else {
-      slideBackground.classList.add( slideColor["default"] );
-    }
-  }
 
   function previousSlide(n){
     hideSlide("to-right");
     changeCurrentSlide(n - 1);
-    changeSlideBackground();
     showSlide("from-left");
   }
 
   function nextSlide(n){
     hideSlide("to-left");
     changeCurrentSlide(n + 1);
-    changeSlideBackground();
     showSlide("from-right");
   }
 
@@ -176,6 +201,7 @@ portfolio.addEventListener("click", (event) => {
 const form = document.querySelector(".get-information");
 const modal = document.querySelector(".modal-block");
 const modalMessage = document.querySelector(".modal__message");
+const modalButton = document.querySelector(".modal__button");
 
 form.addEventListener("submit", (event) => {
 event.preventDefault();
@@ -187,14 +213,11 @@ if( userName.value && userEmail.value) {
     ${detail.value ? `Description: ${detail.value}` : "No description"}`;
     modalMessage.append(content);
     modal.classList.remove("hidden");
-    const modalButton = document.querySelector(".modal__button");
     modalButton.addEventListener("click", (event) => {
         modal.classList.add("hidden");
         document.forms[0].reset();
-    });
-  
+    }); 
 }
-
 }
 )
-    
+
