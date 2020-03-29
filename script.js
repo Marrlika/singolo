@@ -93,7 +93,8 @@ function setVisibility(block) {
     }
 }
 
-/* slider carousel*/
+/* slider carousel */
+
   let slides = document.querySelectorAll(".slide");
   let currentSlider = 0;
   let isEnabled = true;
@@ -150,44 +151,28 @@ function setVisibility(block) {
 
 /*portfolio*/
 
-const portfolio = document.querySelector(".portfolio__projects");
+const portfolio = document.querySelector(".portfolio__projects-container");
 const tags = document.querySelector(".portfolio_filter");
 
-tags.addEventListener("click", selectPortfolioLink);
+tags.addEventListener("click", highlightPortfolioTag);
 
-function selectPortfolioLink(event) {
-
-    tags.querySelectorAll(".filter__item").forEach( element => {
-        element.classList.remove("filter__item_selected");
-    });
-    event.target.classList.add("filter__item_selected");
-
-    portfolio.querySelectorAll(".portfolio__project").forEach(element =>{
-        let newIndex;
-
-        element.classList.forEach(nameClass => {
-            let hasIndex = getCurrentIndex(nameClass);
-            if (hasIndex) {
-                newIndex  = getNewIndex(hasIndex[0]);
-                element.classList.remove(nameClass);
-            }
-        })
-        element.classList.add(`portfolio__project-image${newIndex}`);
-    });
-}
-
-function getCurrentIndex(str) {
-    let portfolioIndex = str.match(/\d+/);
-    return portfolioIndex;
-}
-
-function getNewIndex(index) {
-    let portfolioIndex = +index+3;
-    if (portfolioIndex>12) {
-        portfolioIndex -=12;
+function highlightPortfolioTag(event) {
+    if (!event.target.classList.contains("filter__item_selected")) {
+        tags.querySelectorAll(".filter__item").forEach( element => {
+            element.classList.remove("filter__item_selected");
+        });
+        event.target.classList.add("filter__item_selected");
+        shufflePortfolioProject();
     }
-    return portfolioIndex;
 }
+
+function shufflePortfolioProject() {
+    let projects = [...portfolio.querySelectorAll(".portfolio__project")];
+    projects.push(...projects.splice(0,3));
+    projects.forEach(project => portfolio.append(project));
+
+}
+
 
 portfolio.addEventListener("click", (event) => {
     if ([...event.target.classList].some( className => className==="portfolio__project")) {
